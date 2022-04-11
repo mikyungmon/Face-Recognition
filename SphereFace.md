@@ -22,7 +22,7 @@
 
 - 하지만 softmax함수는 클래스끼리 잘 구분할 뿐, 같은 클래스끼리는 뭉치고 다른 클래스끼리는 떨어지게 하는 discriminative한 동작은 잘 수행하지 못하며 contrasive / triplet 함수는 꼼꼼한 데이터 parir를 구축하는 것이 필수적이라 사용하기에 제한적이다.
 
-- 따라서 SphereFace는 A-Softmax Loss라는 새로운 loss는 제안한다.
+- 따라서 SphereFace는 A-Softmax Loss라는 새로운 loss를 제안한다.
 
 ### A-Softmax Loss
 
