@@ -50,7 +50,7 @@ ArcFace를 이해하기 전 필요한 개념들을 먼저 정리해본다.
   1. softmax classifier를 사용하여 학습데이터의 다른 label(identity)를 구별할 수 있는 multi-class classifier를 학습하는 것
   2. triplet loss와 같이 embedding을 직접적으로 학습하는 것
 
-- 대규모의 학습 데이터와 정교한 DCNN구조에 기반하여 softmax loss기반의 방법과 triplet loss기반의 방법은 얼굴 인식에서 훌륭한 성능을 얻을 수 있었지만 둘 다 결점을 가지공 ㅣㅆ었다.
+- 대규모의 학습 데이터와 정교한 DCNN구조에 기반하여 softmax loss기반의 방법과 triplet loss기반의 방법은 얼굴 인식에서 훌륭한 성능을 얻을 수 있었지만 둘 다 결점을 가지고 있다.
 
 - softmax loss 경우
   
@@ -69,15 +69,65 @@ ArcFace를 이해하기 전 필요한 개념들을 먼저 정리해본다.
 
 (b) intra-loss : sample과 중심간의 geodesic distance를 감소시킨다.
 
-(c) inter-losss : 다른 중심간의 geodesic distance를 증가시킨다
+(c) inter-losss : 다른 중심간의 geodesic distance를 증가시킨다.
 
-(d) triplet loss : triplet sample간의 geodesic distnace margin을 추가함
+(d) triplet loss : triplet sample간의 geodesic distance margin을 추가한다.
 
 해당 논문에서는 Additive Angular Margin Loss(ArcFace)를 제안하며 이는 (a)에서의 geodesic distance margin penalty와 정확히 대응되며 얼굴 인식 모델의 discriminative power를 강화시킨다.
 
+### ArcFace
 
+가장 널리 사용되는 분류 손실함수인 softmax의 loss는 다음과 같이 나타내어질 수 있다.
 
+![image](https://user-images.githubusercontent.com/66320010/162740323-79612e9d-b973-4b2e-baf3-a9e2e4213484.png)
 
+x_i는 i번째 sample의 deep feature를 나타내고 y_i번째 class에 속해있다. 해당 연구에서 embedding feature의 차원은 512차원으로 설정되어있다.
+
+W_j는 가중치의 j번째 column을 나타내고 b_j는 bias term이다.
+
+N은 batch size, n은 class number이다.
+
+전형적인 softmax loss는 널리 사용되고 있지만 feature embedding이 클래스 내 sample들이 높은 유사성을 가지도록 하지 않고 클래스 간 sample들이 다양성을 가지도록 최적화하지 않으며 이는 클래스 내 appearance variation이 높은 상황과 대규모 테스트 시나리오에서 performance gap을 나타낸다.
+
+단순하게 논문에서는 b_j=0으로 두고, 그 후에 logit을 다음과 같이 변형시킨다.
+
+![image](https://user-images.githubusercontent.com/66320010/162742908-bc48735d-8803-4288-b6a1-0abaa0f59281.png)
+
+θ_j는 가중치 W_j와 feature x_i간의 각도를 나타낸다.
+
+이전 연구에 따르면, L2 normalization을 통해서 개별 가중치 ||W_j||= 1 로 만든다.
+
+다른 이전연구에 따라 embedding feature ||x_i||fmf L2 normalization에 의해 고정하고 s로 re-scale한다.
+
+feature와 weight에 대해 normalization하는 단계는 예측이 오직 feature와 weight간의 각도에만 의존하게 만든다.
+
+따라서 학습된 embedding feature는 hypersphere에서 반지름 s의 크기로 분포된다.
+
+![image](https://user-images.githubusercontent.com/66320010/162743861-ee82bac5-4c43-431a-a0dd-01ead69357a8.png)
+
+embedding feature가 hypersphere의 각 feature cnetre주변에 분산되어 있으므로 클래스 내부(intra-class) compatcness와 클래스 간(inter-class) 불일치를 동시에 향상시키기 위해 x_i와 W_(y_i)사이에 additive angular margin penalty인 m을 추가한다.
+
+제시된 additive angular margin penalty가 정규화된 hypersphere의 geodesic distance margin penalty와 동일하기 때문에 이 방법을 ArcFace라고 지었다.
+
+![image](https://user-images.githubusercontent.com/66320010/162744310-1d306d3c-79b7-4c1a-aa4b-695a47f26c06.png)
+
+위의 식에서 설명된거처럼, softmax loss는 대략 분리 가능한 feature embedding을 제공하지만 decision boundary에서 현저한 애매함을 생성한다.
+
+반면에 제시된 ArcFace loss는 가장 가까운 클래스들 간의 더 분명한 차이를 강제할 수 있다.
+
+![image](https://user-images.githubusercontent.com/66320010/162744452-3a7a0876-f338-4fdf-bebd-2a6c5055363e.png)
+
+ArcFace loss를 적용하는 방법은 다음 그림으로 한번에 도식화 할 수 있다.
+
+![image](https://user-images.githubusercontent.com/66320010/162744574-81c593c3-4b20-4ec3-8376-a5ce7f6bfae8.png)
+
+feature x_i와 weight W을 normalization하고 이 둘을 내적해서 cosθ_j(logit)을 얻는다. 
+
+구의 표면에 각 feature들이 존재한다고 생각하면 cosθ_j값이 크다는 것은 class의 중심과 각도가 작다는 것이고(거리가 가깝다는 것이고) cosθ_j 작다는 것은 해당 class 중심과 각도가 크다는 것이다(거리가 멀다는 것이다.)
+
+다음으로는 해당 feature가 속한 class인 y_i의 중심과 feature x_i의 각도인 θ_y_i에 margin m을 추가해준다.
+
+그 다음은 s를 곱해줘서 feature re-scale을 진행하고 이 값을 기준으로 softmax를 취해준 뒤 cross-entropy loss를 계산해준다.
 
 
 
