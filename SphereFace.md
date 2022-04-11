@@ -88,9 +88,13 @@ triplet loss와 같은 Euclidean margin loss는 일반적인 Euclidean 공간에
   
   ### Discusion
   
-  처음에 얼굴 인식을 하기 위해서는 같은 사람의 얼굴은 같이 분포해야하고 다른사람의 얼굴끼리는 벌리 분포해야한다는 목표가 있엇다.
+  처음에 얼굴 인식을 하기 위해서는 같은 사람의 얼굴(inter-class variance)은 같이 분포해야하고 다른사람의 얼굴(intra-class variance)끼리는 멀리 분포해야한다는 목표가 있었다.
   
-  SphereFace에서 제안하는 A-Softmax Loss는 이에 적합한 방법론으로 angle 관점에서 어떻게 discriminative한 feature를 뽑을 수 있을지 보여준 것 같다.
+  기존 softmax loss를 통한 분류를 feature가 내재적인 angular distribution을 가지도록 훈련되어 angular boundary를 통해 클래스를 구분하기가 쉽지 않았다.
+  
+  SphereFace에서 제안하는 A-Softmax Loss는 이에 적합한 방법론으로 angular boundary를 유도하고 얼굴 인식을 위한 discriminative feature learning을 위해 angular margin m을 추가했다. 
+  
+  이 방법은 triplet / contrastive loss와 함께 훈련하기 위해 positive / negative데이터 pair가 필요하지 않기 때문에 쉽게 사용할 수 있다.
   
   하지만 이후에 margin을 줄 수 있는 더 좋은 방법론들이 제시되면서 A-Softmax Loss의 한계가 있음을 지적한다.
 
