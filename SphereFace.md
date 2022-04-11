@@ -58,13 +58,13 @@ feature x는 같으므로 실제로 두 개의 class를 구분하는 것은 θ1�
 
 ![image](https://user-images.githubusercontent.com/66320010/162724058-dc1b9da5-d110-429d-8063-4bdb946f1165.png)
 
-이에따른 feature들의 분포를 보면 아래 그림과 같이 된다. original softmax를 쓰게되면 margin이 없기 때문에 decision boundary(angular bisector)가 정확하게 두 개의 클래스를 분류하지 못한다.
+이에따른 feature들의 분포를 보면 아래 그림과 같이 된다. (a)(b)를 보면, original softmax를 쓰게되면 margin이 없기 때문에 decision boundary(angular bisector)가 정확하게 두 개의 클래스를 분류하지 못한다.
 
 ![image](https://user-images.githubusercontent.com/66320010/162725199-4cf5fa6f-3271-4d10-b6d5-767d29fe7aea.png)
 
-(a)(b) 두번째로 margin이 없는 modified softmax loss를 보면 각도를 기준으로 분류하기 때문에 나름 잘 분류가 된다.
+(c)(d) 두번째로 margin이 없는 modified softmax loss를 보면 각도를 기준으로 분류하기 때문에 나름 잘 분류가 된다.
 
-(c)(d) 여기서 margin을 준 A-softmax loss를 보면 두 개의 W1,W2가 각도를 기준으로 서로 멀리 떨어져 있기 때문에 discriminative한 것을 확인할 수 있다.
+(e)(f) 여기서 margin을 준 A-softmax loss를 보면 두 개의 W1,W2가 각도를 기준으로 서로 멀리 떨어져 있기 때문에 discriminative한 것을 확인할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/66320010/162725499-dc743ad9-b12b-4245-9320-b4097cf6f736.png)
 
