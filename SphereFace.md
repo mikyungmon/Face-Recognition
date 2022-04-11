@@ -32,7 +32,7 @@
 
 x는 모델의 학습된 출력 feature이다. W_i,b_i는 마지막 Fully Connected Layer의 weight와 bias이다.
 
-binary classification의 경우를 가졍하여 p1,p2만 있다고 가정해보자. p1 > p2인 경우는 class1로 예측할 것이고 반대인 경우에는 class2로 예측하게 된다.
+binary classification의 경우를 가정하여 p1,p2만 있다고 해보자. p1 > p2인 경우는 class1로 예측할 것이고 반대인 경우에는 class2로 예측하게 된다.
 
 이 때, 두개의 class를 결정하는 decision boundary(구분짓는 경계)는 (W_1 - W_2)x + b_1 - b_2 = 0가 된다.
 
