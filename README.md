@@ -25,7 +25,15 @@
   ![image](https://user-images.githubusercontent.com/66320010/162870095-33411309-2b44-4376-8499-90e4046e85d4.png)
   
   
-2️⃣ torch 관련
+2️⃣ 프레임워크 관련
+
+  인공지능 연구 및 서비스 개발자의 요구사항, 지원언어 및 하드웨어에 따라 여러 종류의 딥러닝 프레임워크가 개발되어 공개되었음
+  
+  대표적인 것으로는 MxNet, Caffe, Theano, TensorFlow, Torch 등이 있음
+  
+ ![image](https://user-images.githubusercontent.com/66320010/162891298-dbf570dc-e40b-4765-8f79-e0d3772d6599.png) 
+
+[pytorch]
 
 - ### torch.nn.parameter
 
@@ -34,3 +42,12 @@
     - Module에 역전파 동안 업데이트가 필요한 가중치가 있음을 알려주는 텐서용 래퍼
 
     - requires_grad속성이 설정된 텐서만 업데이트됨
+
+
+[MxNet]
+
+  아마존 CTO인 Werner Vogels 박사는 확장능력, 개발 속도, 이동성 등의 다양한 요인을 비추어볼 때 MXNet이 가장 좋은 딥러닝 프레임워크라고 판단하고 이를 기반으로 한 딥러닝 서비스 개발 지원 및 오픈 소스 지원에 대한 의지를 피력한 적 있음
+
+  임포트는 다음과 같이 함
+
+  ![image](https://user-images.githubusercontent.com/66320010/162891845-c693d389-60c8-451e-a0dd-41fa0bdb5421.png) 
