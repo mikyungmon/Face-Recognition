@@ -46,8 +46,14 @@
 
 [MxNet]
 
-  아마존 CTO인 Werner Vogels 박사는 확장능력, 개발 속도, 이동성 등의 다양한 요인을 비추어볼 때 MXNet이 가장 좋은 딥러닝 프레임워크라고 판단하고 이를 기반으로 한 딥러닝 서비스 개발 지원 및 오픈 소스 지원에 대한 의지를 피력한 적 있음
+  - 아마존 CTO인 Werner Vogels 박사는 확장능력, 개발 속도, 이동성 등의 다양한 요인을 비추어볼 때 MXNet이 가장 좋은 딥러닝 프레임워크라고 판단하고 이를 기반으로 한 딥러닝 서비스 개발 지원 및 오픈 소스 지원에 대한 의지를 피력한 적 있음
+  
+  - MXNet의 주요 기능 중 하나는 CPU와 GPU에서 동일하게 실행될 수 있다는 것. 즉, 컴퓨터에 NVIDIA GPU (MacBook과 동일)가 없더라도 나중에 AWS에서 제공하는 GPU 기반 가상 클라우드 인스턴스에서 사용 가능한 MXNet 코드를 작성하고 실행 가능
+  
+  - 내 PC에 GPU가 있으면 CUDA 및 cuDNN툴킷을 설치해야함. 그런데, 이 도구를 설치하는 것이 초보자 입장에서 매우 까다롭고 MXNet 바이너리와 Nvidea 도구 사이의 비 호환성으로 인해 설정이 깨져서 작업하기가 어려울 수 있음
 
-  임포트는 다음과 같이 함
+  - 이러한 이유로 MXNet 웹 사이트에서 제공되는 Docker 이미지 (CPU 환경 용, GPU 환경 용) (nvidia-docker가 필요함)를 사용하는 것이 좋음. 이 이미지에는 필요한 모든 것을 사전 설치하여, 몇 분 안에 시작 가능
 
-  ![image](https://user-images.githubusercontent.com/66320010/162891845-c693d389-60c8-451e-a0dd-41fa0bdb5421.png) 
+  - 임포트는 다음과 같이 함
+
+    ![image](https://user-images.githubusercontent.com/66320010/162891845-c693d389-60c8-451e-a0dd-41fa0bdb5421.png) 
